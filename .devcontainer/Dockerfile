@@ -15,3 +15,7 @@ RUN groupadd --gid $USER_GID $USERNAME \
 # TODO: use the nix daemon instead so that the user cannot overwrite the store
 #       content.
 RUN chown -R $USER_UID:$USER_GID /nix
+
+RUN nix-env -iA cachix -f https://cachix.org/api/v1/install \
+  && cachix use srid \
+  && nix-build -j auto
